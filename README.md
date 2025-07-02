@@ -4,18 +4,16 @@ A full-stack web app for splitting group expenses, tracking reimbursements, and 
 ---
 
 ## ✅ Current Features for MVP (in-progress)
-🧾 Add and categorize shared expenses  
-👥 Automatically split costs between group members  
-📈 Real-time balance tracking and summaries  
-🔁 Smart suggestions to minimize paybacks  
-📬 Reimbursement tracking with payment status  
-📊 Visualize group expenses and individual shares  
+- 🧾 Add and categorize shared expenses  
+- 👥 Automatically split costs between group members  
+- 📈 Real-time balance tracking and summaries  
+- 🔁 Smart suggestions to minimize paybacks  
+- 📬 Reimbursement tracking with payment status  
+- 📊 Visualize group expenses and individual shares  
 
 ---
 
 ## 🚧 Upcoming Enhancements (planned)
-📱 Mobile-first design for better on-the-go use  
-🔔 Email or push notifications for reimbursements  
-🔒 OAuth login and user authentication  
-🌐 Deployment via Vercel or Render  
-📥 Import/export data for budgeting tools 
+- 🔔 Email or push notifications for reimbursements  
+- 🌐 Deployment via Vercel or Render  
+- 📥 Import/export data for budgeting tools 
