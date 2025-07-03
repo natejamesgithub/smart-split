@@ -24,6 +24,20 @@ function App() {
                     </PrivateRoute>
                 }
                 />
+                <Route path = "/groups" 
+                element = {
+                    <PrivateRoute>
+                        <GroupList />
+                    </PrivateRoute>
+                }
+                />
+                <Route path = "/group/:id" 
+                element = {
+                    <PrivateRoute>
+                        <GroupDashboard />
+                    </PrivateRoute>
+                }
+                />
             </Routes>
         </Router>
     )
