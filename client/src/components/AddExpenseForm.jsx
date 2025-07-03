@@ -1,7 +1,7 @@
 import { useState } from "react"; 
-import axios from "axios"; 
+import { api } from "../utils/api";
 
-const addExpenseForm = ({ groupId, members, onAdd }) => {
+const AddExpenseForm = ({ groupId, members, onAdd }) => {
     const [description, setDescription] = useState(""); 
     const [amount, setAmount] = useState(""); 
     const [payer, setPayer] = useState(members[0] || ""); 
@@ -14,7 +14,7 @@ const addExpenseForm = ({ groupId, members, onAdd }) => {
         }
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_BASE}/api/expenses`, {
+            const res = await api.post("/api/expenses", {
                 description, 
                 amount: parseFloat(amount), 
                 payer, 
@@ -76,4 +76,4 @@ const addExpenseForm = ({ groupId, members, onAdd }) => {
     );
 };
 
-export default addExpenseForm; 
+export default AddExpenseForm; 
