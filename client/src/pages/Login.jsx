@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -46,6 +45,9 @@ const Login = () => {
                 >
                     Log In
                 </button>
+                <p className = "text-sm mt-4 text-center">
+                    Don't have an account? <a href = "/signup" className = "text-blue-600 hover:underline">Sign up</a>
+                </p>
             </form>
         </div>
     );
