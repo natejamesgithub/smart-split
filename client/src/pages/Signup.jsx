@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react"; 
 
 const Signup = () => {
     const { signup } = useAuth(); 
