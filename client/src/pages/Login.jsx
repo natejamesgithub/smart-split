@@ -5,6 +5,7 @@ const Login = () => {
     const { login } = useAuth(); 
     const [email, setEmail] = useState(""); 
     const [error, setError] = useState(null); 
+    const [password, setPassword] = useState(""); 
     const navigate = useNavigate(); 
 
     const handleSubmit = async (e) => {
@@ -23,7 +24,7 @@ const Login = () => {
                 <h2 className = "text-2xl font-bold mb-4 text-center">Login</h2>
                 {error && <p className = "text-red-500 text-sm mb-3">{error}</p>}
 
-                <label classname = "block mb-2 text-sm font-medium">Email</label>
+                <label className = "block mb-2 text-sm font-medium">Email</label>
                 <input
                     type = "email"
                     value = {email}

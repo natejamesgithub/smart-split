@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"; 
 import { useParams } from "react-router-dom"; 
+import AddExpenseForm from "../components/AddExpenseForm"; 
 import axios from "axios"; 
 
 const GroupDashboard = () => {

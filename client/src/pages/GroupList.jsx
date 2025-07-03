@@ -36,6 +36,7 @@ const GroupList = () => {
                         {groups.map((group) => (
                             <li key = {group._id} className = "border px-4 py-2 rounded hover:bg-gray-50">
                                 <Link to = {`/group/${group._id}`} className = "text-lg font-medium text-blue-600 hover:underline">
+                                    {group.name}
                                 </Link>
                             </li>
                         ))}
