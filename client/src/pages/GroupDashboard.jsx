@@ -12,8 +12,8 @@ const GroupDashboard = () => {
         const fetchGroupAndExpenses = async () => {
             try {
                 const [groupRes, expenseRes] = await Promise.all([
-                    axios.get(`/api/groups/${id}`), 
-                    axios.get(`/api/expenses?groupId=${id}`),
+                    axios.get(`${import.meta.env.VITE_API_BASE}/api/groups/${id}`),
+                    axios.get(`${import.meta.env.VITE_API_BASE}/api/expenses?groupId=${id}`),
                 ]);  
                 setGroup(groupRes.data); 
                 setExpenses(expenseRes.data);
@@ -38,7 +38,7 @@ const GroupDashboard = () => {
             const splitAmount = amount / splitBetween.length; 
             splitBetween.forEach((member) => {
                 if(member !== payer) {
-                    balances[member] -= splitAmount; 
+                    balances[member] -=splitAmount; 
                     balances[payer] += splitAmount; 
                 }
             }); 

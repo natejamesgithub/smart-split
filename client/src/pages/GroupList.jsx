@@ -11,7 +11,7 @@ const GroupList = () => {
     useEffect(() => {
         const fetchGroups = async () => {
             try {
-                const res = await axios.get(`/api/groups?user=${user.email}`); 
+                const res = await axios.get(`${import.meta.env.VITE_API_BASE}/api/groups?user=${user.email}`);
                 setGroups(res.data); 
             } catch (err) {
                 console.error("Error fetching groups:", err); 

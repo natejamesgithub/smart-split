@@ -14,7 +14,7 @@ const addExpenseForm = ({ groupId, members, onAdd }) => {
         }
 
         try {
-            const res = await axios.post(`/api/expenses`, {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE}/api/expenses`, {
                 description, 
                 amount: parseFloat(amount), 
                 payer, 
@@ -76,4 +76,4 @@ const addExpenseForm = ({ groupId, members, onAdd }) => {
     );
 };
 
-export default AddExpenseForm; 
+export default addExpenseForm; 

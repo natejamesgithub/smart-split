@@ -30,3 +30,7 @@ app.get("/api/health", (req, res) => res.send("API is alive!"));
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.get("/", (req, res) => {
+  res.send("Smart Split API is running!");
+});
