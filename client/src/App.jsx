@@ -3,13 +3,16 @@ import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard"; 
 import CreateGroup from "./pages/CreateGroup";
+import Signup from "./pages/Signup";
+import GroupList from "./pages/GroupList";
+import GroupDashboard from "./pages/GroupDashboard";
 
 function App() {
     return (
         <Router>
             <Routes>
                 <Route path = "/login" element = {<Login />} />
-                <Route path = "/signnup" element = {<Signup />} />
+                <Route path = "/signup" element = {<Signup />} />
                 <Route path = "/dashboard" 
                 element = {
                     <PrivateRoute>
@@ -42,3 +45,4 @@ function App() {
         </Router>
     )
 }
+export default App; 
