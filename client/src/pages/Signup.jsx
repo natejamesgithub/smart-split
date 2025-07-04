@@ -20,6 +20,7 @@ const Signup = () => {
             navigate("/dashboard");
         } catch (err) {
             setError("Failed to create an account"); 
+            console.error("[Firebase Signup Error]", err);
         }
     };
 
