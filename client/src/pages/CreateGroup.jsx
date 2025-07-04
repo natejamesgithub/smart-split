@@ -1,7 +1,8 @@
 import { useAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react"; 
-import axios from "axios"; 
+import { api } from "../utils/api";
+// import axios from "axios"; 
 
 const CreateGroup = () => {
     const { user } = useAuth(); 
@@ -28,12 +29,12 @@ const CreateGroup = () => {
         }
 
         try {
-            await axios.post("/api/groups", {
+            await api.post("/api/groups", {
                 name: groupName,
                 members, 
                 createdBy: user.email,
             }); 
-            navigate("/dashboard"); 
+            navigate("/groups"); 
         } catch (err) {
             console.error(err); 
             setError("Failed to create group."); 
