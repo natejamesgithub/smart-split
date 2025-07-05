@@ -56,6 +56,16 @@ const GroupDashboard = () => {
     setExpenses((prev) => [...prev, newExpense]); 
   }; 
 
+  const handleDeleteExpense = async (expenseId) => {
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_BASE}/api/expenses/${expenseId}`);
+      setExpenses((prev) => prev.filter((e) => e._id !== expenseId));
+    } catch (err) {
+      console.error("Failed to delete expense:",err); 
+      alert("Something went wrong while deleting the expense."); 
+    }
+  }; 
+
   if (loading) return <p className="p-6">Loading group...</p>; 
   if (!group || !Array.isArray(group.members)) return <p className="p-6 text-red-500">Group not found or invalid group data.</p>;
 
@@ -77,11 +87,22 @@ const GroupDashboard = () => {
         ) : (
           <ul className="mb-6 space-y-2">
             {expenses.map((e) => (
-              <li key={e._id} className="border px-3 py-2 rounded bg-gray-50">
-                <strong>{e.description}</strong> — ${e.amount?.toFixed(2) ?? "0.00"} paid by {e.payer}
+              <li
+                key={e._id}
+                className="border px-3 py-2 rounded bg-gray-50 flex justify-between items-center"
+              >
+                <div>
+                  <strong>{e.description}</strong> — ${e.amount?.toFixed(2) ?? "0.00"} paid by {e.payer}
+                </div>
+                <button
+                  onClick={() => handleDeleteExpense(e._id)}
+                  className="text-red-500 hover:text-red-700 text-sm ml-4"
+                >
+                  🗑️ Delete
+                </button>
               </li>
             ))}
-          </ul>
+        </ul>
         )}
 
         <h2 className="text-lg font-semibold mb-2">Balances</h2>
