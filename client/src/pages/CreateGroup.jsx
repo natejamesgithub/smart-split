@@ -34,7 +34,7 @@ const CreateGroup = () => {
                 members, 
                 createdBy: user.email,
             }); 
-            navigate("/groups"); 
+            navigate("/dashboard"); 
         } catch (err) {
             console.error(err); 
             setError("Failed to create group."); 
