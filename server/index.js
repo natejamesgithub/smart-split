@@ -22,8 +22,10 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 const groupRoutes = require("./routes/groups");
 const expenseRoutes = require("./routes/expenses");
+const paymentRoutes = require("./routes/payments"); 
 app.use("/api/groups", groupRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/payments", paymentRoutes); 
 
 // Test route
 app.get("/api/health", (req, res) => res.send("API is alive!"));

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"; 
 import { useParams } from "react-router-dom"; 
 import AddExpenseForm from "../components/AddExpenseForm"; 
+import AddPaymentForm from "../components/AddPaymentForm";
+import { useAuth } from "../context/AuthContext.jsx"
 import axios from "axios"; 
 
 const GroupDashboard = () => {
@@ -9,48 +11,59 @@ const GroupDashboard = () => {
   const [expenses, setExpenses] = useState([]); 
   const [loading, setLoading] = useState(true); 
   const [balances, setBalances] = useState({});
+  const { user: currentUser } = useAuth(); 
+  const [payments, setPayments] = useState([]); 
 
   useEffect(() => {
-    const fetchGroupAndExpenses = async () => {
+    const fetchAll = async () => {
       try {
-        const [groupRes, expenseRes] = await Promise.all([
+        const [groupRes, expenseRes, paymentRes] = await Promise.all([
           axios.get(`${import.meta.env.VITE_API_BASE}/api/groups/${id}`),
           axios.get(`${import.meta.env.VITE_API_BASE}/api/expenses?groupId=${id}`),
+          axios.get(`${import.meta.env.VITE_API_BASE}/api/payments?groupId=${id}`),
         ]);  
         setGroup(groupRes.data); 
         setExpenses(expenseRes.data || []);
+        setPayments(paymentRes.data || []); 
       } catch (err) {
         console.error("Error loading group/expenses:", err); 
       } finally {
         setLoading(false); 
       }
     }; 
-    fetchGroupAndExpenses(); 
+    fetchAll(); 
   }, [id]); 
+  
+useEffect(() => {
+  if (!group || !Array.isArray(group.members)) return;
 
-  useEffect(() => {
-    if (!group || !Array.isArray(group.members)) return;
+  const newBalances = {};
+  group.members.forEach((member) => {
+    newBalances[member] = 0;
+  });
 
-    const newBalances = {};
-    group.members.forEach((member) => (newBalances[member] = 0));
+  for (const { amount, payer, splitBetween } of expenses || []) {
+    if (!amount || !payer || !Array.isArray(splitBetween)) continue;
 
-    if (!Array.isArray(expenses)) return;
+    const share = amount / splitBetween.length;
 
-    expenses.forEach((expense) => {
-      const { amount, payer, splitBetween } = expense;
-      if (!amount || !payer || !Array.isArray(splitBetween)) return;
+    for (const member of splitBetween) {
+      if (member !== payer) {
+        newBalances[member] -= share;
+        newBalances[payer] += share;
+      }
+    }
+  }
 
-      const splitAmount = amount / splitBetween.length;
-      splitBetween.forEach((member) => {
-        if (member !== payer) {
-          newBalances[member] -= splitAmount;
-          newBalances[payer] += splitAmount;
-        }
-      });
-    });
+  for (const { payer, payee, amount } of payments || []) {
+    if (!payer || !payee || !amount) continue;
+
+      newBalances[payer] -= amount;
+      newBalances[payee] += amount;
+    }
 
     setBalances(newBalances);
-  }, [group, expenses]);
+  }, [group, expenses, payments]);
 
   const handleAddExpense = (newExpense) => {
     setExpenses((prev) => [...prev, newExpense]); 
@@ -66,6 +79,10 @@ const GroupDashboard = () => {
     }
   }; 
 
+  const handleAddPayment = (newPayment) => {
+    setPayments((prev) => [...prev, newPayment]);
+  };
+
   if (loading) return <p className="p-6">Loading group...</p>; 
   if (!group || !Array.isArray(group.members)) return <p className="p-6 text-red-500">Group not found or invalid group data.</p>;
 
@@ -80,6 +97,17 @@ const GroupDashboard = () => {
           members={group.members}
           onAdd={handleAddExpense}
         />
+
+        {console.log("Rendering Payment Form with user:", currentUser?.email)}
+
+        {currentUser?.email && (
+          <AddPaymentForm
+            groupId={group._id}
+            members={group.members}
+            currentUser={currentUser.email}
+            onAdd={handleAddPayment}
+          />
+        )}
 
         <h2 className="text-lg font-semibold mb-2">Expenses</h2>
         {!Array.isArray(expenses) || expenses.length === 0 ? (
