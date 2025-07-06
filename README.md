@@ -3,7 +3,7 @@ A full-stack web app for splitting group expenses, tracking reimbursements, and 
 
 ---
 
-## ✅ Current Features for MVP (in-progress)
+## ✅ Current Features
 - 🧾 Add and categorize shared expenses  
 - 👥 Automatically split costs between group members  
 - 📈 Real-time balance tracking and summaries  
