@@ -7,7 +7,6 @@ A full-stack web app for splitting group expenses, tracking reimbursements, and 
 - 🧾 Add and categorize shared expenses  
 - 👥 Automatically split costs between group members  
 - 📈 Real-time balance tracking and summaries  
-- 🔁 Smart suggestions to minimize paybacks  
 - 📬 Reimbursement tracking with payment status  
 - 📊 Visualize group expenses and individual shares  
 
